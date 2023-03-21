@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>The Matrix Effect</title>
+	<style>
+		body {
+			background-color: black;
+			color: green;
+			font-size: 20px;
+			font-family: 'Courier New', monospace;
+			overflow: hidden;
+			height: 200%;
+		}
+		#text {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			pointer-events: none;
+		}
+		#text span {
+			animation: rain 5s linear infinite;
+			white-space: nowrap;
+			opacity: 0;
+			text-shadow: 0 0 2px #00ff00;
+			position: absolute;
+			text-align: center;
+		}
+		#text span:nth-child(1) {
+			top: 0%;
+			left: 15%;
+			font-size: 25px;
+			animation-delay: 0s;
+		}
+		#text span:nth-child(2) {
+			top: 15%;
+			left: 15%;
+			font-size: 25px;
+			animation-delay: 1s;
+		}
+		#text span:nth-child(3) {
+			top: 25%;
+			left: 15%;
+			font-size: 25px;
+			animation-delay: 2s;
+		}
+		#text span:nth-child(4) {
+			top: 35%;
+			left: 15%;
+			font-size: 25px;
+			animation-delay: 3s;
+		}
+		#text span:nth-child(5) {
+			top: 45%;
+			left: 15%;
+			font-size: 25px;
+			animation-delay: 4s;
+		}
+		#text span:nth-child(6) {
+			top: 55%;
+			left: 15%;
+			font-size: 25px;
+			animation-delay: 5s;
+		}
+        #text span:nth-child(7) {
+			top: 65%;
+			left: 15%;
+			font-size: 25px;
+			animation-delay: 6s;
+		}
+        #text span:nth-child(8) {
+			top: 75%;
+			left: 15%;
+			font-size: 25px;
+			animation-delay: 7s;
+		}
+        #text span:nth-child(9) {
+			top: 85%;
+			left: 15%;
+			font-size: 25px;
+			animation-delay: 8s;
+		}
+        #text span:nth-child(10) {
+			top: 95%;
+			left: 15%;
+			font-size: 25px;
+			animation-delay: 9s;
+		}
+		#text span.glitch {
+			animation: glitch 0.5s ease-in-out infinite;
+			animation-fill-mode: forwards;
+			text-shadow: none;
+		}
+		@keyframes rain {
+			0% {
+				transform: translateY(-100%);
+				opacity: 0;
+			}
+			50% {
+				transform: translateY(100%);
+				opacity: 1;
+			}
+			100% {
+				transform: translateY(300%);
+				opacity: 0;
+			}
+		}
+		@keyframes glitch {
+			0% {
+				transform: skew(0deg);
+			}
+			20% {
+				transform: skew(20deg);
+				opacity: 0.7;
+			}
+			40% {
+				transform: skew(-20deg);
+				opacity: 0.7;
+			}
+			60% {
+				transform: skew(10deg);
+				opacity: 0.7;
+			}
+			80% {
+				transform: skew(-5deg);
+				opacity: 0.7;
+			}
+			100% {
+				transform: skew(0deg);
+			}
+		}
+        .description {
+            margin: 10px;
+			animation: rain 2s linear infinite;
+			white-space: nowrap;
+			opacity: 0;
+			text-shadow: 0 0 2px #00ff00;
+			position: absolute;
+        }
+	</style>
+</head>
+<body>
+	<div id="text">
+		<!-- <span>THE MATRIX</span> -->
+        <span>V</span><span>I</span><span>S</span><span>U</span><span>A</span><span>L</span><span>S</span><span>C</span><span>A</span><span>P</span>
+
+	</div>
+</body>
+</html>

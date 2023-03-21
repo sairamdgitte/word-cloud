@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>The Matrix Effect</title>
+    <style>
+        html{
+            overflow: hidden;
+        }
+        body {
+            background-color: black;
+            color: rgb(0, 255, 0);
+            font-size: 24px;
+            font-family: 'Courier New', monospace;
+            /* overflow: hidden; */
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        #text span {
+            margin: 10px;
+            animation: rain 5s linear infinite;
+            white-space: nowrap;
+            opacity: 0;
+            text-shadow: 0 0 2px #00ff00;
+            position: absolute;
+        }
+
+        @keyframes rain {
+            0% {
+                transform: translateY(-200%);
+                opacity: 0.0;
+            }
+
+            /* 25% {
+                transform: translateY(-100%);
+                opacity: 0.5;
+            } */
+
+            50% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            /* 75% {
+                transform: translateY(100%);
+                opacity: 0.75;
+            } */
+
+            100% {
+                transform: translateY(200%);
+                opacity: 1;
+            }
+        }
+        /* Styles for the button */
+        #button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #button:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="text"></div>
+    <!-- <button id="myButton">Click Me!</button> -->
+
+    <script>
+        // const texts = ["Welcome to the Matrix", "Follow the white rabbit, Nithya", "Wake up, Nithya", "which will you choose?", "Red or Blue pill?"];
+        const texts = ['If we take these five steps now, we can ward off a climate disaster',
+            "A four degree world? You really don't want to go there...",
+            'UN warns of worsening next decade global displacements',
+            'Trump’s climate move disappoints world',
+            'Toyota’s Skunkworks Chief “Incredibly Optimistic” on Climate',
+            "There's a crisis on the horizon; Climate change",
+            '2022 World Water Day: WaterAid, Britain survey reveals enough groundwater in Africa',
+            'Inconvenient news',
+            'News organizations turn spotlight on climate change',
+            '2nd UPDATE:Australia Mulls Soft 2020 Emissions Reduction Tgt',
+            'US and China close to teaming up on tackling climate change, but progress will hinge on trust and resolving technical issues, Peking University academic says',
+            "Alberta tipped for Tory landslide amid resentment over Trudeau's oil policy",
+            'Black & Veatch: Shift to Digital Water Can Help Overcome Threats to Water Supplies',
+            'Future of Kyoto Protocol Minus U.S. Is Uncertain',
+            'Environment - Environmental Impact; Federal University Pernambuco (UFPE) Researchers Describe Recent Advances in Environmental Impact (Analysis of the water-energy-greenhouse gas nexus in a water supply system in the Northeast of Brazil)',
+            'Climate Fund approves US$3m for Zim',
+            'Ellie Goulding encourages climate change protests',
+            'Town meetings call for reduced greenhouse gasses',
+            'Can China really kick its coal addiction to achieve carbon neutrality by 2060?',
+            'Philippines takes up complaint of human rights violations by oil firms',
+            'Heavy rains lead to preventable pollution',
+            "Promise of a `clean coal' future far from reality",
+            "Commentary: Climate change was behind this summer's extreme weather",
+            'Qatar to host UN climate talks in bid to show oil producers helping protect planet',
+            'LEAD: Japan, Pacific island states to boost ties, cooperate on climate',
+            'Turnbull has been given a reprieve on leadership',
+            'Greenhouse Calculator Helps Families Go Low-Carb',
+            'Baucus Asserts Jurisdiction On Climate Bill Trade Provisions',
+            "Small beetle with a big lesson for investors; Pest's rapid and lethal spread tells us that financial risk from the environment has become systemic",
+            'Trade group urges policymakers to cut methane emissions through rules, not taxes',
+            "US Sen. Manchin says Moniz's Green Real Deal lives up to its name",
+            "Federal Highway Administration changes mentions of 'climate change' to 'resilience' in transportation program ; The program's website now highlights hydraulic engineering guidance that is aimed at adapting to sea level rise and more frequent flooding.",
+            'Acute water shortage staring Pakistan in the face: Sherry Rehman',
+            'Nice sunny days can grow into heat waves - and wildfires: summer weather is stalling',
+            'UN Secretary General denounces "war against nature".',
+            'Terrorism; Zhengzhou University Reports Findings in Terrorism (The asymmetric associations between foreign direct investment inflows, terrorism, CO2 emissions, and economic growth: a tale of two shocks)',
+            'Con Edison Cited For Environmental Excellence',
+            'Vattenfall AB - The world’s first diesel plug in hybrid',
+            'Village savings impacting positively on rural women',
+            'Climate Change; Sara Lee Commended for Climate Change Disclosure',
+            "Uncertainty doesn't justify ignoring global warming",
+            'Mayor Goff outlines billion-dollar climate action package',
+            'Five years on, signs that Paris climate accord is working',
+            'Hottest day in Arctic: WMO official warns of more extreme weather',
+            'LETTERS TO THE EDITOR',
+            'COP27 must move from promises to action',
+            'Climate change risks US bases, fuels social disorder: top admiral',
+            'Joint Center Climate Change Commission Hosts Regional Meeting',
+            'Sartor denies move to scuttle coalmine challenge',
+            "'THIS IS NOT HYPOTHETICAL' KABAT, LOCAL LEADERS CITE HEALTH, CLIMATE IN CALL FOR CLEAN CAR STANDARDS",
+            'Climate Change; Ocean University of China Reports Findings in Climate Change (Climate risks to fishing species and fisheries in the China Seas)',
+            'Climate change on hub agenda',
+            'The Power of Policy and Technology - Speech By UNEP Executive Director, Achim Steiner, At the Global Environmental Action International Conference 2015 [document]',
+            "Esso says concerned over Body Shop's UK boycott move.",
+            'Jamaica Walking a Tightrope Between Boosting the Economy and Cutting Emissions in COVID-19 Era',
+            "European Union - COP26: Local leaders call on EU's chief negotiator Vice-President Timmermans to include regional and local dimension in final Glasgow conclusions to protect people and the planet",
+            'Remarks by javier guzman calafell, deputy governor at the banco de mexico, at the panel on "developing sustainable capital markets: mapping the challenges and setting priorities" Omfif-dz bank, washington, dc, october 19, 2019',
+            'University of Bristol: Survey reveals many people have reservations about flying in future',
+            'IAEA Collaborates with Asian Development Bank to Showcase Energy Modelling Tools, Training and Support',
+            'Weekly Climate Change Policy Update - February 9, 2009',
+            "ATTORNEY GENERAL BECERRA FILES FRIEND-OF-THE-COURT BRIEF IN SUPPORT OF BALTIMORE'S EFFORT TO HOLD BIG OIL ACCOUNTABLE FOR CLIMATE CHANGE IMPACTS IN THEIR COMMUNITY",
+            'Ipswich Borough Council - Ipswich Borough Council adopts new plans to combat climate change and flooding',
+            '70% of IPSA companies commit to UN sustainable goals',
+            'Next 12 years crucial for Pakistan in tackling climate change, moot told',
+            'Press Release: CommScope Commences Notes Offering',
+            'Robert Beanblossom: The impact of climate change is here now (Opinion)',
+            '‘Climate change to blame for extreme weather events in the Nilgiris’',
+            'The Mother Earth factor',
+            'Coalition for disaster resilient infrastructure developed in consultations with over 35 countries',
+            'Oxfam: Paris climate talks report reveals massive costs of warming for the world?s poorest',
+            'Save cash and world',
+            'Imagining both utopian and dystopian climate futures is crucial –\xa0which is why cli-fi is so important',
+            'New coalition to mobilise suppliers and accelerate climate action',
+            'NEW ZEALAND: NEW ZEALAND EXPERT TO CHAIR INTERNATIONAL CLIMATE CHANGE GROUP',
+            "B.C. Climate News Nov. 15-21: Insurance industry describes latest extreme weather as 'wake-up call' on climate change | 'Couldn't have imagined it six months ago,' says Horgan, but scientists have been issuing climate warnings for decades",
+            'At UN, Vanuatu calls for fossil fuel non-proliferation treaty',
+            'Environmental Epidemiology; Findings from University of Fribourg Provides New Data about Environmental Epidemiology (Bench approaches to study the detrimental cutaneous impact of tropospheric ozone)',
+            "House Democrats Unveil Sweeping Climate Legislation To Transform Country's Energy Mix",
+            "Humans are causing climate change: It's just been proven directly for the first time",
+            "'NO TIME TO WASTE' ON CLIMATE CHANGE",
+            'Act now if we are to save planet',
+            'Global Warming and Climate Change; New Global Warming and Climate Change Findings from Cyber University of Korea Outlined (Climate Change Analysis In Energy-mix With Non-carbon Emission Energy Incorporated With Pandemic Society)',
+            'Alberta Leaders Debate Kyoto In Climate Change Newsletter',
+            "Judge denies Exxon's request to dismiss investor-led fraud lawsuit",
+            'Climate Solutions Caucus Welcomes Four New Members; Membership Grows to 66; Rep. Deutch Ted (D-FL) News Release',
+            'LETTERS',
+            "Mining's 'green premium' to rise: BlackRock",
+            'Climate change would have severe impact on fishery sector: UN',
+            "Nations meet to confront climate change, `change history'",
+            'Asia likely to face severe water crisis by 2050: Study',
+            'Bank loans scrutinized for harm to wildlife as well as climate',
+            "Why is climate change's 2 degrees Celsius of warming limit so important?",
+            'Monash University; 5 million deaths a year caused by global climate related abnormal temps',
+            'FCA climate risk plans welcomed by Pensions Minister',
+            'Environmental Atmospheric Research; Study Data from Shanghai University Update Knowledge of Environmental Atmospheric Research (The Impact of Volatile Organic Compounds On Ozone Formation In the Suburban Area of Shanghai)',
+            'Climate Change; Data on Climate Change Detailed by Researchers at Center for Disease Control and Prevention (Climate Change in the North American Arctic: A One Health Perspective)',
+            'Study on storing water in caverns',
+            'Palmer Labs; Palmer Labs Awarded U.S. Department of Energy Funding for Algae Biofuel Research',
+            'Nordic terroir: Scandinavia turns to making wine',
+            'China heads for price on carbon; energy market overhaul is next',
+            'Huge rise in greenhouse gas from transport.',
+            'Business group calls for measures to ensure stable power supply',
+            'Alta environment minister wants Ottawa to tailor approach to greenhouse gases',
+            'International Code Council appoints committees to lead energy code development',
+            "Government's energy use hits 40-year low",
+            'PM must reveal his carbon price',
+            'Minister welcomes progress on emissions trading',
+            'Emissions study includes goals for Goshen through 2035',
+            'Experts debate voluntary, mandatory efforts to slow global warming',
+            'Can ignoring art reduce greenhouse gas emissions?',
+            'SPECIAL FEATURE: NET-ZERO ROADMAP (TOWARDS A SUSTAINABLE WORLD) Envisioning a net-zero future and what it will take to get there',
+            'Painting Goals Green',
+            'China, Norway to outline framework on environmental protection',
+            'MRI cash needs new approach',
+            'Despite Kyoto, coal will still be king in Nova Scotia: officials',
+            'EPA Recognizes North Carolina Energy Star Partners for Significantly Reducing Greenhouse Gas Emissions',
+            'Greenhouse Gases; New Findings from Norwegian University of Science and Technology (NTNU) Update Understanding of Greenhouse Gases (Embodied greenhouse gas emissions from PV systems in Norwegian residential Zero Emission Pilot Buildings)',
+            'Partnering with Green Marine to Accelerate Methanol-Fueled Newbuilds in Europe',
+            "U.S. Withdrawal From Climate Deal Draws Rebuke, Resolve From Leaders; France's Macron told President Trump 'nothing can be renegotiated in the Paris agreement.'",
+            'The Morning Brief: A Resonating Rebuke Over Greenhouse Gases',
+            'Environmental fundamentalism is ruining lives',
+            'REP. KUCINICH: WILL INCREASED CARBON DIOXIDE EMISSIONS BE OUR GIFT TO NEXT GENERATION?',
+            'LETTERS TO THE EDITOR',
+            'Regions call for climate action: poll',
+            'Climate change talks shun natives: Fontaine',
+            'Greenhouse Gases; Research Conducted at Chalmers University of Technology Has Provided New Information about Greenhouse Gases (A modeling comparison of deep greenhouse gas emissions reduction scenarios by 2030 in California)',
+            "Solar power leads energy transition pathway amidst Guyana's oil boom",
+            'UK must cut greenhouse gases to zero by 2050, warn government advisers',
+            'Climate change and your health',
+            'How bad are private jets for the environment?',
+            "Neste product to power County of Sacramento's fleet in California",
+            'Warming up for the big fight.',
+            'Science.-Measures are urgently needed to reduce global methane emissions',
+            'Orion Announces Ambition to Achieve Net-Zero Carbon Emissions by 2050',
+            'State panel will consider rules for climate-change plan',
+            'Australia carbon tax to cost 14,000 jobs: study',
+            'RIGHT VIEW Global-warming folly',
+            'U.S. HIT WITH DOUBLE SNUB AT EARTH SUMMIT.',
+            "Never mind Corrie, we're doomed!",
+            "In the heart of coal country, EPA gets an earful about Clean Power Plan's fate ; The Trump administration's proposal to kill the Obama-era climate regulation draws praise in West Virginia.",
+            'Biotechnology - Biofuel; Studies from Autonomous University Provide New Data on Biofuel (Using Green-hydrogen and Bioethanol Fuels In Internal Combustion Engines To Reduce Emissions)',
+            "United Nations Issues 'Code Red' for Humanity in Climate Crisis",
+            '3 reasons RNG is decarbonizing trucking today',
+            'Panel Completes Climate Marathon',
+            'Scotgov outlines spending plans for £660m ScotWind income',
+            'Arkema Reinforces Its Commitment to the Climate',
+            'Stalling in Bali; The Bush administration continues to say one thing and do another on climate change.',
+            'ARB Boasts Rise In State GDP While Lowering GHGs In 2009-12 Period',
+            'Doha climate talks remain deadlocked',
+            'GLOBAL CLIMATE CHANGE - DAVID CRANE',
+            'Towns put climate change resolution on town meeting agendas',
+            'Energy Research; Findings from University of Geneva Update Knowledge of Energy Research (Mental Accounting Mechanisms In Energy Decision-making and Behaviour)',
+            'When children speak out about climate change',
+            "Gov't Taps 9 Mindanao Electric Coops for Energy Efficiency Project",
+            "Society: Environment: How to save the world?: This year's G8 summit in Germany hopes to agree a plan to tackle climate change, and the host country's good form on environmental action is a leading example. But there are still battles ahead",
+            'LITHUANIAN HIGHLIGHTS 7172',
+            'Coronavirus - COVID-19; Shenzhen University Reports Findings in COVID-19 (Estimating CO2 emissions from emergency-supply transport: The case of COVID-19 vaccine global air transport)',
+            'Looming threat',
+            'Environment - Environment and Sustainability Research; Researchers from Sun Yat-sen University Report Recent Findings in Environment and Sustainability Research (Does Improvement of Environmental Efficiency Matter In Reducing Carbon Emission Intensity? Fresh Evidence From 283 Prefecture-level ...)',
+            'Press Release: Water Utilities Set the Pace in Race to Reduce Carbon Emissions',
+            'Chapman Tripp First New Zealand Law Firm To Join Net Zero Lawyers Alliance',
+            'Geoengineering Research Needed, Members Hear',
+            'Global Warming: An unreal accord',
+            'Kellogg Company; Kellogg Company Pledges Support Of 15,000 Smallholder Farmers Worldwide During UN Climate Summit',
+            'Global alliance for phasing out coal not fit for purpose, says NGO',
+            'Climate: Some Progress in Poland',
+            "COP26: 'Two realities' for climate delegates at Glasgow conference",
+            'UN strategy for climate pact hopes talk among world leaders will lead to deal-making',
+            "'CLIMATE FUTURE' CAMPAIGN TO SET EMISSION-REDUCTION TARGETS",
+            'Geopark Limited - GeoPark joins the Colombian Government’s Carbon Neutrality Program',
+            'A BILLION TREES NOT ENOUGH TO MEET EMISSIONS TARGET',
+            'climate change; Fort Collins reveals price, 31 initiatives to reduce emissions',
+            'REPORT ON U.S.-CHINA COLLABORATION ON CARBON CAPTURE, SEQUESTRATION',
+            'Kyoto debate gets hot   A conference on global warming promises a range of views.',
+            'Panel Calculates Cost of Global Warming Fix; Nations Could Afford Solutions, Scientists Say',
+            'Raytheon, Staples Recognized for Climate Leadership (MA)',
+            'Bad omens for climate summit in Glasgow',
+            'Greenhouse Gases; Reports on Greenhouse Gases from University of Cambridge School of Clinical Medicine Provide New Insights (Mortality, greenhouse gas emissions and consumer cost impacts of combined diet and physical activity scenarios: a health impact ...)',
+            "Chairman Bridenstine Opening Statement on EPA's Methane Regulation",
+            'Eves takes his stand on Kyoto Accord',
+            "'Let us not waste a second more' - Taoiseach at COP27",
+            "Idaho joins move against ‘woke capitalism'",
+            "Investors --- Reducing Gains: Investors are flocking to the growing market in emissions allowances; But it's not for the faint of heart",
+            'Chile already meets one third of its emission reduction target',
+            'Press Release: Plug Secures 5 MW Electrolyzer Sale to Leading Canadian Energy Company Irving Oil',
+            'Nine in 10 Italians ‘want more action on climate crisis’, new study finds',
+            'Switching on to energy savings.',
+            'Studies Gauge US Carbon Intake In Global Warming Debate',
+            'Global warming is real, presidential panel says; Pressure now on Bush to act on report',
+            'Damaging effects',
+            'Rutgers: COLUMN: Stop global whining',
+            'Fish will be smaller and gasping for air as oceans warm, say scientists',
+            'New artificial leaf creates fuel using CO2, sunlight',
+            'Firmenich Receives SBTi Approval For Net-Zero Emissions Target',
+            "\u200bLast 7 years 'warmest on record' globally: EU",
+            'INDEX:Advisories',
+            '=DJ FOCUS: Australia Wants Lead Role On Carbon Capture, Storage',
+            'all you need to know about garnaut',
+            'Ontario announces new greenhouse gas target for 2030; 37% below 1990 levels',
+            'LETTER - Global warming a hotly debated issue.',
+            'If we take these five steps now, we can ward off a climate disaster',
+            "A four degree world? You really don't want to go there...",
+            'UN warns of worsening next decade global displacements',
+            'Trump’s climate move disappoints world',
+            'Toyota’s Skunkworks Chief “Incredibly Optimistic” on Climate',
+            "There's a crisis on the horizon; Climate change",
+            '2022 World Water Day: WaterAid, Britain survey reveals enough groundwater in Africa',
+            'Inconvenient news',
+            'News organizations turn spotlight on climate change',
+            '2nd UPDATE:Australia Mulls Soft 2020 Emissions Reduction Tgt',
+            'US and China close to teaming up on tackling climate change, but progress will hinge on trust and resolving technical issues, Peking University academic says',
+            "Alberta tipped for Tory landslide amid resentment over Trudeau's oil policy",
+            'Black & Veatch: Shift to Digital Water Can Help Overcome Threats to Water Supplies',
+            'Future of Kyoto Protocol Minus U.S. Is Uncertain',
+            'Environment - Environmental Impact; Federal University Pernambuco (UFPE) Researchers Describe Recent Advances in Environmental Impact (Analysis of the water-energy-greenhouse gas nexus in a water supply system in the Northeast of Brazil)',
+            'Climate Fund approves US$3m for Zim',
+            'Ellie Goulding encourages climate change protests',
+            'Town meetings call for reduced greenhouse gasses',
+            'Can China really kick its coal addiction to achieve carbon neutrality by 2060?',
+            'Philippines takes up complaint of human rights violations by oil firms',
+            'Heavy rains lead to preventable pollution',
+            "Promise of a `clean coal' future far from reality",
+            "Commentary: Climate change was behind this summer's extreme weather",
+            'Qatar to host UN climate talks in bid to show oil producers helping protect planet',
+            'LEAD: Japan, Pacific island states to boost ties, cooperate on climate',
+            'Turnbull has been given a reprieve on leadership',
+            'Greenhouse Calculator Helps Families Go Low-Carb',
+            'Baucus Asserts Jurisdiction On Climate Bill Trade Provisions',
+            "Small beetle with a big lesson for investors; Pest's rapid and lethal spread tells us that financial risk from the environment has become systemic",
+            'Trade group urges policymakers to cut methane emissions through rules, not taxes',
+            "US Sen. Manchin says Moniz's Green Real Deal lives up to its name",
+            "Federal Highway Administration changes mentions of 'climate change' to 'resilience' in transportation program ; The program's website now highlights hydraulic engineering guidance that is aimed at adapting to sea level rise and more frequent flooding.",
+            'Acute water shortage staring Pakistan in the face: Sherry Rehman',
+            'Nice sunny days can grow into heat waves - and wildfires: summer weather is stalling',
+            'UN Secretary General denounces "war against nature".',
+            'Terrorism; Zhengzhou University Reports Findings in Terrorism (The asymmetric associations between foreign direct investment inflows, terrorism, CO2 emissions, and economic growth: a tale of two shocks)',
+            'Con Edison Cited For Environmental Excellence',
+            'Vattenfall AB - The world’s first diesel plug in hybrid',
+            'Village savings impacting positively on rural women',
+            'Climate Change; Sara Lee Commended for Climate Change Disclosure',
+            "Uncertainty doesn't justify ignoring global warming",
+            'Mayor Goff outlines billion-dollar climate action package',
+            'Five years on, signs that Paris climate accord is working',
+            'Hottest day in Arctic: WMO official warns of more extreme weather',
+            'LETTERS TO THE EDITOR',
+            'COP27 must move from promises to action',
+            'Climate change risks US bases, fuels social disorder: top admiral',
+            'Joint Center Climate Change Commission Hosts Regional Meeting',
+            'Sartor denies move to scuttle coalmine challenge',
+            "'THIS IS NOT HYPOTHETICAL' KABAT, LOCAL LEADERS CITE HEALTH, CLIMATE IN CALL FOR CLEAN CAR STANDARDS",
+            'Climate Change; Ocean University of China Reports Findings in Climate Change (Climate risks to fishing species and fisheries in the China Seas)',
+            'Climate change on hub agenda',
+            'The Power of Policy and Technology - Speech By UNEP Executive Director, Achim Steiner, At the Global Environmental Action International Conference 2015 [document]',
+            "Esso says concerned over Body Shop's UK boycott move.",
+            'Jamaica Walking a Tightrope Between Boosting the Economy and Cutting Emissions in COVID-19 Era',
+            "European Union - COP26: Local leaders call on EU's chief negotiator Vice-President Timmermans to include regional and local dimension in final Glasgow conclusions to protect people and the planet",
+            'Remarks by javier guzman calafell, deputy governor at the banco de mexico, at the panel on "developing sustainable capital markets: mapping the challenges and setting priorities" Omfif-dz bank, washington, dc, october 19, 2019',
+            'University of Bristol: Survey reveals many people have reservations about flying in future',
+            'IAEA Collaborates with Asian Development Bank to Showcase Energy Modelling Tools, Training and Support',
+            'Weekly Climate Change Policy Update - February 9, 2009',
+            "ATTORNEY GENERAL BECERRA FILES FRIEND-OF-THE-COURT BRIEF IN SUPPORT OF BALTIMORE'S EFFORT TO HOLD BIG OIL ACCOUNTABLE FOR CLIMATE CHANGE IMPACTS IN THEIR COMMUNITY",
+            'Ipswich Borough Council - Ipswich Borough Council adopts new plans to combat climate change and flooding',
+            '70% of IPSA companies commit to UN sustainable goals',
+            'Next 12 years crucial for Pakistan in tackling climate change, moot told',
+            'Press Release: CommScope Commences Notes Offering',
+            'Robert Beanblossom: The impact of climate change is here now (Opinion)',
+            '‘Climate change to blame for extreme weather events in the Nilgiris’',
+            'The Mother Earth factor',
+            'Coalition for disaster resilient infrastructure developed in consultations with over 35 countries',
+            'Oxfam: Paris climate talks report reveals massive costs of warming for the world?s poorest',
+            'Save cash and world',
+            'Imagining both utopian and dystopian climate futures is crucial –\xa0which is why cli-fi is so important',
+            'New coalition to mobilise suppliers and accelerate climate action',
+            'NEW ZEALAND: NEW ZEALAND EXPERT TO CHAIR INTERNATIONAL CLIMATE CHANGE GROUP',
+            "B.C. Climate News Nov. 15-21: Insurance industry describes latest extreme weather as 'wake-up call' on climate change | 'Couldn't have imagined it six months ago,' says Horgan, but scientists have been issuing climate warnings for decades",
+            'At UN, Vanuatu calls for fossil fuel non-proliferation treaty',
+            'Environmental Epidemiology; Findings from University of Fribourg Provides New Data about Environmental Epidemiology (Bench approaches to study the detrimental cutaneous impact of tropospheric ozone)',
+            "House Democrats Unveil Sweeping Climate Legislation To Transform Country's Energy Mix",
+            "Humans are causing climate change: It's just been proven directly for the first time",
+            "'NO TIME TO WASTE' ON CLIMATE CHANGE",
+            'Act now if we are to save planet',
+            'Global Warming and Climate Change; New Global Warming and Climate Change Findings from Cyber University of Korea Outlined (Climate Change Analysis In Energy-mix With Non-carbon Emission Energy Incorporated With Pandemic Society)',
+            'Alberta Leaders Debate Kyoto In Climate Change Newsletter',
+            "Judge denies Exxon's request to dismiss investor-led fraud lawsuit",
+            'Climate Solutions Caucus Welcomes Four New Members; Membership Grows to 66; Rep. Deutch Ted (D-FL) News Release',
+            'LETTERS',
+            "Mining's 'green premium' to rise: BlackRock",
+            'Climate change would have severe impact on fishery sector: UN',
+            "Nations meet to confront climate change, `change history'",
+            'Asia likely to face severe water crisis by 2050: Study',
+            'Bank loans scrutinized for harm to wildlife as well as climate',
+            "Why is climate change's 2 degrees Celsius of warming limit so important?",
+            'Monash University; 5 million deaths a year caused by global climate related abnormal temps',
+            'FCA climate risk plans welcomed by Pensions Minister',
+            'Environmental Atmospheric Research; Study Data from Shanghai University Update Knowledge of Environmental Atmospheric Research (The Impact of Volatile Organic Compounds On Ozone Formation In the Suburban Area of Shanghai)',
+            'Climate Change; Data on Climate Change Detailed by Researchers at Center for Disease Control and Prevention (Climate Change in the North American Arctic: A One Health Perspective)',
+            'Study on storing water in caverns',
+            'Palmer Labs; Palmer Labs Awarded U.S. Department of Energy Funding for Algae Biofuel Research',
+            'Nordic terroir: Scandinavia turns to making wine',
+            'China heads for price on carbon; energy market overhaul is next',
+            'Huge rise in greenhouse gas from transport.',
+            'Business group calls for measures to ensure stable power supply',
+            'Alta environment minister wants Ottawa to tailor approach to greenhouse gases',
+            'International Code Council appoints committees to lead energy code development',
+            "Government's energy use hits 40-year low",
+            'PM must reveal his carbon price',
+            'Minister welcomes progress on emissions trading',
+            'Emissions study includes goals for Goshen through 2035',
+            'Experts debate voluntary, mandatory efforts to slow global warming',
+            'Can ignoring art reduce greenhouse gas emissions?',
+            'SPECIAL FEATURE: NET-ZERO ROADMAP (TOWARDS A SUSTAINABLE WORLD) Envisioning a net-zero future and what it will take to get there',
+            'Painting Goals Green',
+            'China, Norway to outline framework on environmental protection',
+            'MRI cash needs new approach',
+            'Despite Kyoto, coal will still be king in Nova Scotia: officials',
+            'EPA Recognizes North Carolina Energy Star Partners for Significantly Reducing Greenhouse Gas Emissions',
+            'Greenhouse Gases; New Findings from Norwegian University of Science and Technology (NTNU) Update Understanding of Greenhouse Gases (Embodied greenhouse gas emissions from PV systems in Norwegian residential Zero Emission Pilot Buildings)',
+            'Partnering with Green Marine to Accelerate Methanol-Fueled Newbuilds in Europe',
+            "U.S. Withdrawal From Climate Deal Draws Rebuke, Resolve From Leaders; France's Macron told President Trump 'nothing can be renegotiated in the Paris agreement.'",
+            'The Morning Brief: A Resonating Rebuke Over Greenhouse Gases',
+            'Environmental fundamentalism is ruining lives',
+            'REP. KUCINICH: WILL INCREASED CARBON DIOXIDE EMISSIONS BE OUR GIFT TO NEXT GENERATION?',
+            'LETTERS TO THE EDITOR',
+            'Regions call for climate action: poll',
+            'Climate change talks shun natives: Fontaine',
+            'Greenhouse Gases; Research Conducted at Chalmers University of Technology Has Provided New Information about Greenhouse Gases (A modeling comparison of deep greenhouse gas emissions reduction scenarios by 2030 in California)',
+            "Solar power leads energy transition pathway amidst Guyana's oil boom",
+            'UK must cut greenhouse gases to zero by 2050, warn government advisers',
+            'Climate change and your health',
+            'How bad are private jets for the environment?',
+            "Neste product to power County of Sacramento's fleet in California",
+            'Warming up for the big fight.',
+            'Science.-Measures are urgently needed to reduce global methane emissions',
+            'Orion Announces Ambition to Achieve Net-Zero Carbon Emissions by 2050',
+            'State panel will consider rules for climate-change plan',
+            'Australia carbon tax to cost 14,000 jobs: study',
+            'RIGHT VIEW Global-warming folly',
+            'U.S. HIT WITH DOUBLE SNUB AT EARTH SUMMIT.',
+            "Never mind Corrie, we're doomed!",
+            "In the heart of coal country, EPA gets an earful about Clean Power Plan's fate ; The Trump administration's proposal to kill the Obama-era climate regulation draws praise in West Virginia.",
+            'Biotechnology - Biofuel; Studies from Autonomous University Provide New Data on Biofuel (Using Green-hydrogen and Bioethanol Fuels In Internal Combustion Engines To Reduce Emissions)',
+            "United Nations Issues 'Code Red' for Humanity in Climate Crisis",
+            '3 reasons RNG is decarbonizing trucking today',
+            'Panel Completes Climate Marathon',
+            'Scotgov outlines spending plans for £660m ScotWind income',
+            'Arkema Reinforces Its Commitment to the Climate',
+            'Stalling in Bali; The Bush administration continues to say one thing and do another on climate change.',
+            'ARB Boasts Rise In State GDP While Lowering GHGs In 2009-12 Period',
+            'Doha climate talks remain deadlocked',
+            'GLOBAL CLIMATE CHANGE - DAVID CRANE',
+            'Towns put climate change resolution on town meeting agendas',
+            'Energy Research; Findings from University of Geneva Update Knowledge of Energy Research (Mental Accounting Mechanisms In Energy Decision-making and Behaviour)',
+            'When children speak out about climate change',
+            "Gov't Taps 9 Mindanao Electric Coops for Energy Efficiency Project",
+            "Society: Environment: How to save the world?: This year's G8 summit in Germany hopes to agree a plan to tackle climate change, and the host country's good form on environmental action is a leading example. But there are still battles ahead",
+            'LITHUANIAN HIGHLIGHTS 7172',
+            'Coronavirus - COVID-19; Shenzhen University Reports Findings in COVID-19 (Estimating CO2 emissions from emergency-supply transport: The case of COVID-19 vaccine global air transport)',
+            'Looming threat',
+            'Environment - Environment and Sustainability Research; Researchers from Sun Yat-sen University Report Recent Findings in Environment and Sustainability Research (Does Improvement of Environmental Efficiency Matter In Reducing Carbon Emission Intensity? Fresh Evidence From 283 Prefecture-level ...)',
+            'Press Release: Water Utilities Set the Pace in Race to Reduce Carbon Emissions',
+            'Chapman Tripp First New Zealand Law Firm To Join Net Zero Lawyers Alliance',
+            'Geoengineering Research Needed, Members Hear',
+            'Global Warming: An unreal accord',
+            'Kellogg Company; Kellogg Company Pledges Support Of 15,000 Smallholder Farmers Worldwide During UN Climate Summit',
+            'Global alliance for phasing out coal not fit for purpose, says NGO',
+            'Climate: Some Progress in Poland',
+            "COP26: 'Two realities' for climate delegates at Glasgow conference",
+            'UN strategy for climate pact hopes talk among world leaders will lead to deal-making',
+            "'CLIMATE FUTURE' CAMPAIGN TO SET EMISSION-REDUCTION TARGETS",
+            'Geopark Limited - GeoPark joins the Colombian Government’s Carbon Neutrality Program',
+            'A BILLION TREES NOT ENOUGH TO MEET EMISSIONS TARGET',
+            'climate change; Fort Collins reveals price, 31 initiatives to reduce emissions',
+            'REPORT ON U.S.-CHINA COLLABORATION ON CARBON CAPTURE, SEQUESTRATION',
+            'Kyoto debate gets hot   A conference on global warming promises a range of views.',
+            'Panel Calculates Cost of Global Warming Fix; Nations Could Afford Solutions, Scientists Say',
+            'Raytheon, Staples Recognized for Climate Leadership (MA)',
+            'Bad omens for climate summit in Glasgow',
+            'Greenhouse Gases; Reports on Greenhouse Gases from University of Cambridge School of Clinical Medicine Provide New Insights (Mortality, greenhouse gas emissions and consumer cost impacts of combined diet and physical activity scenarios: a health impact ...)',
+            "Chairman Bridenstine Opening Statement on EPA's Methane Regulation",
+            'Eves takes his stand on Kyoto Accord',
+            "'Let us not waste a second more' - Taoiseach at COP27",
+            "Idaho joins move against ‘woke capitalism'",
+            "Investors --- Reducing Gains: Investors are flocking to the growing market in emissions allowances; But it's not for the faint of heart",
+            'Chile already meets one third of its emission reduction target',
+            'Press Release: Plug Secures 5 MW Electrolyzer Sale to Leading Canadian Energy Company Irving Oil',
+            'Nine in 10 Italians ‘want more action on climate crisis’, new study finds',
+            'Switching on to energy savings.',
+            'Studies Gauge US Carbon Intake In Global Warming Debate',
+            'Global warming is real, presidential panel says; Pressure now on Bush to act on report',
+            'Damaging effects',
+            'Rutgers: COLUMN: Stop global whining',
+            'Fish will be smaller and gasping for air as oceans warm, say scientists',
+            'New artificial leaf creates fuel using CO2, sunlight',
+            'Firmenich Receives SBTi Approval For Net-Zero Emissions Target',
+            "\u200bLast 7 years 'warmest on record' globally: EU",
+            'INDEX:Advisories',
+            '=DJ FOCUS: Australia Wants Lead Role On Carbon Capture, Storage',
+            'all you need to know about garnaut',
+            'Ontario announces new greenhouse gas target for 2030; 37% below 1990 levels',
+            'LETTER - Global warming a hotly debated issue.']
+        const textDiv = document.getElementById('text');
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        function createText() {
+            const span = document.createElement('span');
+            span.innerText = texts[Math.floor(Math.random() * texts.length)];
+            span.style.top = Math.floor(Math.random() * height) + 'px';
+            span.style.left = Math.floor(Math.random() * width) + 'px';
+            span.style.right = Math.floor(Math.random() * width) + 'px';
+            textDiv.appendChild(span);
+            setTimeout(() => {
+                textDiv.removeChild(span);
+            }, 1000);
+        }
+
+        setInterval(() => {
+            createText();
+        }, 100);
+        // Function to handle button click
+        function handleClick() {
+            console.log('Button clicked!');
+        }
+
+        setTimeout(() => {
+  const button = document.createElement('button');
+  button.addEventListener('click', handleClick);
+  button.innerText = 'Take me there, Morpheus!';
+  button.style.color = '#ffffff';
+  button.style.backgroundColor = '#000000'; // set a gold background color
+  button.style.color = 'rgb(0, 255, 0)'; // set text color to white
+  button.style.border = 'none'; // remove border
+  button.style.borderRadius = '20px'; // set rounded corners
+  button.style.padding = '10px 20px'; // increase padding
+  button.style.fontFamily = 'Helvetica, Arial, sans-serif'; // set font family
+  button.style.fontSize = '1.2em'; // increase font size
+  button.style.boxShadow = '0 2px 5px rgba(0,0,0,.5)'; // add a subtle shadow
+  button.style.cursor = 'pointer'; // add pointer cursor to indicate clickability
+  button.style.opacity = '0'; // set initial opacity to 0
+  button.style.transform = 'translateY(10px)'; // move button down slightly
+  button.style.transition = 'opacity 1s ease-in-out'; // add transition properties
+  document.body.appendChild(button);
+
+  setTimeout(() => { // use setTimeout to delay the button appearance
+    button.style.opacity = '1'; // set opacity to 1 to make the button visible
+    button.style.transform = 'translateY(0)'; // move the button up to its original position
+  }, 1000);
+
+  function handleClick() {
+    window.location.href = 'index-timeseries.html'; // replace with the path to your HTML file
+  }  
+}, 5000);
+
+
+
+
+        // // Attach handleClick function to button click event
+        
+    </script>
+</body>
+
+</html>
